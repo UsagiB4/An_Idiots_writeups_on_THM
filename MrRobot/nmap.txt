@@ -1,0 +1,45 @@
+# Nmap 7.93 scan initiated Fri May  5 08:21:41 2023 as: nmap -sC -sV -T4 -A -v -p- -oN namp.txt 10.10.214.177
+Nmap scan report for 10.10.214.177
+Host is up (0.17s latency).
+Not shown: 65532 filtered tcp ports (no-response)
+PORT    STATE  SERVICE  VERSION
+22/tcp  closed ssh
+80/tcp  open   http     Apache httpd
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Site doesn't have a title (text/html).
+|_http-favicon: Unknown favicon MD5: D41D8CD98F00B204E9800998ECF8427E
+|_http-server-header: Apache
+443/tcp open   ssl/http Apache httpd
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-favicon: Unknown favicon MD5: D41D8CD98F00B204E9800998ECF8427E
+|_http-title: Site doesn't have a title (text/html).
+|_http-server-header: Apache
+| ssl-cert: Subject: commonName=www.example.com
+| Issuer: commonName=www.example.com
+| Public Key type: rsa
+| Public Key bits: 1024
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2015-09-16T10:45:03
+| Not valid after:  2025-09-13T10:45:03
+| MD5:   3c163b1987c342ad6634c1c9d0aafb97
+|_SHA-1: ef0c5fa5931a09a5687ca2c280c4c79207cef71b
+Device type: general purpose|specialized|storage-misc|WAP|broadband router|printer
+Running (JUST GUESSING): Linux 5.X|3.X|4.X|2.6.X (92%), Crestron 2-Series (89%), HP embedded (89%), Asus embedded (88%)
+OS CPE: cpe:/o:linux:linux_kernel:5.4 cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4 cpe:/o:crestron:2_series cpe:/h:hp:p2000_g3 cpe:/o:linux:linux_kernel:2.6.22 cpe:/o:linux:linux_kernel:2.6 cpe:/h:asus:rt-n56u
+Aggressive OS guesses: Linux 5.4 (92%), Linux 3.10 - 3.13 (91%), Linux 3.10 - 4.11 (90%), Linux 3.12 (90%), Linux 3.13 (90%), Linux 3.13 or 4.2 (90%), Linux 3.2 - 3.5 (90%), Linux 3.2 - 3.8 (90%), Linux 4.2 (90%), Linux 4.4 (90%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 0.017 days (since Fri May  5 08:00:36 2023)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=259 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 22/tcp)
+HOP RTT       ADDRESS
+1   169.38 ms 10.8.0.1
+2   170.69 ms 10.10.214.177
+
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri May  5 08:24:53 2023 -- 1 IP address (1 host up) scanned in 192.55 seconds
