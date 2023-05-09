@@ -106,7 +106,9 @@ Then I got the password for our user which is **ER28-0652**
 
 Now login to the admin panel and upload your [shell](https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php).Don't forget to change your **IP** and **PORT**.
 
-I uploaded mine into **404.php**.
+I uploaded mine into **page.php**.
+
+For that you have to go to `Appearance > Editor`. On the rightside you will see all the pages available like 404.php, singlepage so on.
 
 Now start **NETCAT** to listen on your port specified. I used the port **4499** in this case.
 
@@ -124,3 +126,25 @@ After searching for a while I found a *StackOverFlow* post where they suggest so
 ```bash
 python -c 'import pty; pty.spawn("/bin/sh")'
 ```
+Now we can read the **2nd** key from `/home/robot` directory.
+
+After that we have to switch up to **ROOT** which is our final leveling up. I checked the hint and it said **nmap**.<br>
+The first thing that came into my mind is checking if the **SUID bit** is set or not.
+
+I check it using the command:
+```bash
+find / -perm -u=s -type f 2>/dev/null
+```
+Annnddddd there I was right. It has its suid bit set to root
+**`-rwsr-xr-x 1 root root 504736 Nov 13  2015 /usr/local/bin/nmap`**
+
+To exploit it I checked the legend, the boss [https://gtfobins.github.io/](https://gtfobins.github.io/gtfobins/nmap/)
+
+To get the `root` shell I used 
+```nmap --interactive``` it will allow us to run **nmap** in interactive mode.
+Then type `!sh` to span shell as root.
+
+At last got to root directory and submit the flag.
+
+# Now you're a **`H4CK3R M4N`**
+<img src="../images/hackerman.png" width="auto" height="200px">
